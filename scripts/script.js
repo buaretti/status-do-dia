@@ -11,7 +11,10 @@ function atualizarHora() {
     const ano = date.getFullYear();
     const body = document.body;
     const imghora = document.getElementById("imghora");
-    hora.innerHTML = `Agora são ${horaAtual} horas ${minutosAtual} minutos e ${segundosAtual} segundos ⏰`;
+    const horaStr = pluralizeIfNeeded(horaAtual, "hora");
+    const minutosStr = pluralizeIfNeeded(minutosAtual, "minuto");
+    const segundosStr = pluralizeIfNeeded(segundosAtual, "segundo");
+    hora.innerHTML = `Agora são ${horaStr} ${minutosStr} ${segundosStr} ⏰`;
     calendario.innerHTML = `Hoje é dia ${dia} de ${mes} de ${ano} 📆`;
     if (horaAtual >= 0 && horaAtual < 4) {
         // Madrugada
@@ -37,6 +40,14 @@ function atualizarHora() {
         // Noite
         imghora.src = "imgs/noite.jpg";
         body.style.backgroundColor = "#41433A";
+    }
+}
+function pluralizeIfNeeded(valor, palavra) {
+    if (valor === 1) {
+        return `${valor} ${palavra}`;
+    }
+    else {
+        return `${valor} ${palavra}s`;
     }
 }
 // Função para converter número de mês para mês por extenso
